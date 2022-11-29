@@ -25,7 +25,8 @@ app.route("/datoArduino")
 
 //añadir arduino
 const postDatoArduino = (request, response) => {
-    const {id_arduino, num_pin, valor, fecha} = request.body;
+    const {id_arduino, num_pin, valor} = request.body;
+    const fecha = new Date();
     connection.query("INSERT INTO dato_arduino(id_arduino, num_pin, valor, fecha) VALUES (?,?,?,?) ",
     [id_arduino, num_pin, valor, fecha],
     (error, results) => {
