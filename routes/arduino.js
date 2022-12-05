@@ -7,9 +7,24 @@ dotenv.config();
 //conexión con la base de datos
 const {connection} = require("../configDB");
 
-
 //obtener arduinos
 const getArduino = (request, response) => {
+    const id = request.params.id;
+    connection.query("SELECT * FROM arduinos where id_arduino = ?", 
+    [id], 
+    (error, results) => {
+        if(error)
+            throw error;
+        response.status(200).json(results);
+    });
+};
+
+//ruta
+app.route("/arduinos/:id")
+.get(getArduino);
+
+//obtener arduinos
+const getArduinos = (request, response) => {
     connection.query("SELECT * FROM arduinos", 
     (error, results) => {
         if(error)
@@ -20,7 +35,7 @@ const getArduino = (request, response) => {
 
 //ruta
 app.route("/arduinos")
-.get(getArduino);
+.get(getArduinos);
 
 
 //añadir arduino
@@ -57,7 +72,3 @@ app.route("/arduinos/:id")
 .delete(delArduino);
 
 module.exports = app;
-
-
-
-//https://asfo.medium.com/desarrollando-una-sencilla-api-rest-con-nodejs-y-express-cab0813f7e4b
