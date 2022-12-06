@@ -73,6 +73,23 @@ const delDatoArduino = (request, response) => {
 app.route("/datoArduino/:id")
 .delete(delDatoArduino);
 
+
+const getDatosArduino = (request, response) => {
+    const id_ard = request.params.id;
+    const pin_ard = request.params.pin;
+    connection.query("SELECT * FROM dato_arduino WHERE id_arduino=? and num_pin=? ORDER BY fecha",  
+    [id_ard, pin_ard],
+    (error, results) => {
+        if(error)
+            throw error;
+        response.status(200).json(results);
+    });
+};
+
+//ruta
+app.route("/getDatosArduino/:id/pin/:pin")
+.get(getDatosArduino);
+
 module.exports = app;
 
 

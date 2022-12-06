@@ -7,7 +7,7 @@ dotenv.config();
 //conexión con la base de datos
 const {connection} = require("../configDB");
 
-//obtener arduinos
+//obtener arduino
 const getArduino = (request, response) => {
     const id = request.params.id;
     connection.query("SELECT * FROM arduinos where id_arduino = ?", 
