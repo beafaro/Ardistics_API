@@ -25,7 +25,7 @@ app.route("/datoArduino")
 //obtener estado actual de los pines en un arduino
 const getEstadoArduino = (request, response) => {
     const id_ard = request.params.id;
-    connection.query("SELECT * FROM dato_arduino WHERE id_dato IN (SELECT MAX(id_dato) FROM dato_arduino WHERE id_arduino = ? GROUP BY num_pin)",  
+    connection.query("SELECT * FROM dato_arduino WHERE id_dato IN (SELECT MAX(id_dato) FROM dato_arduino WHERE id_arduino = ? GROUP BY num_pin) ORDER BY num_pin",  
     [id_ard],
     (error, results) => {
         if(error)
